@@ -1,6 +1,6 @@
 import numpy as np
 
-class Layer_Danse:
+class Layer_Dense:
     def __init__(self, n_inputs, n_neurons): 
         # print(np.random.randn(2,5)) 
         # >>> [[ 1.7640524 0.4001572 0.978738 2.2408931 1.867558 ],
@@ -15,4 +15,15 @@ class Layer_Danse:
     def forward(self, inputs): 
         # Calculate output values from inputs, weights and biases 
         self.output = np.dot(inputs, self.weights) + self.biases
+        self.inputs = inputs
         pass # using pass statement as a placeholder
+    
+    def backward(self, dvalues):
+        # Gradients on parameters
+        self.dweights = np.dot(self.inputs.T, dvalues)
+        self.dbiases = np.sum(dvalues, axis=0, keepdims=True)
+        # Gradient on values
+        self.dinputs = np.dot(dvalues, self.weights.T)
+    
+    
+        
